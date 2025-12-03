@@ -1,5 +1,5 @@
 {
-  "name": "传统建筑工匠与营造技艺数据库-v5.3",
+  "name": "chuantong-v5-3",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,6 +12,7 @@
     "recharts": "^3.5.1",
     "react-dom": "^19.2.0",
     "react": "^19.2.0",
+    "react-is": "^19.0.0",
     "lucide-react": "^0.555.0"
   },
   "devDependencies": {
