@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { LayoutDashboard, Map, Users, HardHat, Building2, Hammer, Menu, X, Award, BookOpen, Briefcase, MapPin, Clock, ArrowRight, Mountain, Trees, Cloud, Wind, Waves, User, Layers, PenTool, LayoutTemplate, PlusCircle, Trash2, Pencil } from 'lucide-react';
+import { LayoutDashboard, Map, Users, HardHat, Building2, Hammer, Menu, X, Award, BookOpen, Briefcase, MapPin, Clock, ArrowRight, Mountain, Trees, Cloud, Wind, Waves, User, Layers, PenTool, LayoutTemplate, PlusCircle, Trash2, Pencil, Mail, Flag } from 'lucide-react';
 import { Dashboard } from './components/Dashboard';
 import { DataView, SectionCard, DetailRow, InfoBadge } from './components/DataView';
 import { AddDataModal } from './components/AddDataModal';
@@ -12,6 +12,9 @@ function App() {
   const [sessionStartTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
   const [sessionDuration, setSessionDuration] = useState('00:00:00');
+  
+  // Top Visitor State
+  const [topVisitor, setTopVisitor] = useState({ ip: '118.182.24.***', flag: '🇨🇳' });
   
   // Helper to load state from localStorage or fallback to default DB
   const loadState = <T,>(key: string, defaultData: T[]): T[] => {
@@ -46,6 +49,20 @@ function App() {
   useEffect(() => localStorage.setItem('db_projects', JSON.stringify(projects)), [projects]);
   useEffect(() => localStorage.setItem('db_techniques', JSON.stringify(techniques)), [techniques]);
 
+  // Simulate dynamic Top Visitor on mount
+  useEffect(() => {
+    const visitors = [
+      { ip: '118.182.10.***', flag: '🇨🇳' }, // Lanzhou
+      { ip: '114.242.55.***', flag: '🇨🇳' }, // Beijing
+      { ip: '202.100.88.***', flag: '🇨🇳' }, // Tianshui
+      { ip: '58.210.33.***',  flag: '🇨🇳' }, // Suzhou
+      { ip: '101.226.11.***', flag: '🇨🇳' }  // Shanghai
+    ];
+    // Randomly select one to simulate change
+    const randomVisitor = visitors[Math.floor(Math.random() * visitors.length)];
+    setTopVisitor(randomVisitor);
+  }, []);
+
   // Time & Session Timer Effect
   useEffect(() => {
     const timer = setInterval(() => {
@@ -65,12 +82,12 @@ function App() {
   }, [sessionStartTime]);
 
   const navItems: { id: TabType; label: string; icon: React.ReactNode }[] = [
-    { id: 'dashboard', label: '总览', icon: <LayoutDashboard size={20} /> },
-    { id: 'regions', label: '地理区域', icon: <Map size={20} /> },
-    { id: 'craftsmen', label: '工匠名录', icon: <Users size={20} /> },
-    { id: 'teams', label: '营造团队', icon: <HardHat size={20} /> },
-    { id: 'projects', label: '项目案例', icon: <Building2 size={20} /> },
-    { id: 'techniques', label: '营造技艺', icon: <Hammer size={20} /> },
+    { id: 'dashboard', label: '总览', icon: <LayoutDashboard size={24} /> },
+    { id: 'regions', label: '地理区域', icon: <Map size={24} /> },
+    { id: 'craftsmen', label: '工匠名录', icon: <Users size={24} /> },
+    { id: 'teams', label: '营造团队', icon: <HardHat size={24} /> },
+    { id: 'projects', label: '项目案例', icon: <Building2 size={24} /> },
+    { id: 'techniques', label: '营造技艺', icon: <Hammer size={24} /> },
   ];
 
   const handleNavigate = useCallback((tab: TabType) => {
@@ -667,7 +684,7 @@ function App() {
              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 text-white transform rotate-3">
                <Building2 size={22} />
              </div>
-             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v5.0</div>
+             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v5.3</div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight tracking-tight">
             传统建筑工匠<br/>与营造技艺数据库
@@ -688,7 +705,7 @@ function App() {
               <div className={activeTab === item.id ? 'text-white' : 'text-gray-400 group-hover:text-indigo-500 transition-colors'}>
                 {item.icon}
               </div>
-              <span className="font-bold tracking-wide text-sm">{item.label}</span>
+              <span className="font-bold tracking-wide text-base">{item.label}</span>
               {activeTab === item.id && <ArrowRight size={16} className="ml-auto opacity-50" />}
             </button>
           ))}
@@ -703,16 +720,29 @@ function App() {
              <div>
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Full Stack Engineer</p>
                 <p className="text-sm font-bold text-gray-800">Kong Lingchao</p>
+                <a href="mailto:elliotkong@icloud.com" className="text-[10px] text-indigo-500 font-medium hover:underline block mt-0.5 flex items-center gap-1">
+                  <Mail size={10} /> elliotkong@icloud.com
+                </a>
              </div>
            </div>
 
            <div className="flex flex-col gap-1 text-[10px] font-medium text-gray-400">
-             <p>© 2025 Traditional Architecture & Craftsmanship Database.</p>
+             <p>© 2025 Traditional Architecture DB.</p>
              <p>Designed & Developed by Kong Lingchao.</p>
              <p>All Rights Reserved.</p>
+             
+             {/* Dynamic Top Visitor Section */}
              <div className="flex justify-between mt-2 pt-2 border-t border-gray-200/60">
+               <span className="uppercase tracking-widest text-[9px] text-gray-400">Top Visitor</span>
+               <span className="font-mono text-gray-700 font-bold flex items-center gap-2">
+                 <span>{topVisitor.flag}</span>
+                 <span>{topVisitor.ip}</span>
+               </span>
+             </div>
+             
+             <div className="flex justify-between mt-1">
                <span>Version</span>
-               <span className="font-mono text-gray-600">v5.0</span>
+               <span className="font-mono text-gray-600">v5.3</span>
              </div>
            </div>
         </div>

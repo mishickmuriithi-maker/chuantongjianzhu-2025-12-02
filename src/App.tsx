@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { LayoutDashboard, Map, Users, HardHat, Building2, Hammer, Menu, X, Award, BookOpen, Briefcase, MapPin, Clock, ArrowRight, Mountain, Trees, Cloud, Wind, Waves, User, Layers, PenTool, LayoutTemplate, PlusCircle, Trash2, Pencil } from 'lucide-react';
+import { LayoutDashboard, Map, Users, HardHat, Building2, Hammer, Menu, X, Award, BookOpen, Briefcase, MapPin, Clock, ArrowRight, Mountain, Trees, Cloud, Wind, Waves, User, Layers, PenTool, LayoutTemplate, PlusCircle, Trash2, Pencil, Eye, Mail } from 'lucide-react';
 import { Dashboard } from './components/Dashboard';
 import { DataView, SectionCard, DetailRow, InfoBadge } from './components/DataView';
 import { AddDataModal } from './components/AddDataModal';
@@ -12,6 +12,7 @@ function App() {
   const [sessionStartTime] = useState(new Date());
   const [currentTime, setCurrentTime] = useState(new Date());
   const [sessionDuration, setSessionDuration] = useState('00:00:00');
+  const [pageViews, setPageViews] = useState(10240); // Base count
   
   // Helper to load state from localStorage or fallback to default DB
   const loadState = <T,>(key: string, defaultData: T[]): T[] => {
@@ -45,6 +46,18 @@ function App() {
   useEffect(() => localStorage.setItem('db_teams', JSON.stringify(teams)), [teams]);
   useEffect(() => localStorage.setItem('db_projects', JSON.stringify(projects)), [projects]);
   useEffect(() => localStorage.setItem('db_techniques', JSON.stringify(techniques)), [techniques]);
+
+  // Page View Counter Effect
+  useEffect(() => {
+    // Simulate page view counter by storing in localStorage and incrementing on mount
+    const storedVisits = localStorage.getItem('db_visits');
+    let visits = storedVisits ? parseInt(storedVisits) : 0;
+    visits += 1;
+    localStorage.setItem('db_visits', visits.toString());
+    
+    // Set view count = Base (8848) + Actual Visits
+    setPageViews(8848 + visits);
+  }, []);
 
   // Time & Session Timer Effect
   useEffect(() => {
@@ -667,7 +680,7 @@ function App() {
              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 text-white transform rotate-3">
                <Building2 size={22} />
              </div>
-             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v5.1</div>
+             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v5.2</div>
           </div>
           <h1 className="text-3xl font-bold text-gray-900 leading-tight tracking-tight">
             传统建筑工匠<br/>与营造技艺数据库
@@ -703,6 +716,9 @@ function App() {
              <div>
                 <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Full Stack Engineer</p>
                 <p className="text-sm font-bold text-gray-800">Kong Lingchao</p>
+                <a href="mailto:elliotkong@icloud.com" className="text-[10px] text-indigo-500 font-medium hover:underline block mt-0.5 flex items-center gap-1">
+                  <Mail size={10} /> elliotkong@icloud.com
+                </a>
              </div>
            </div>
 
@@ -711,8 +727,12 @@ function App() {
              <p>Designed & Developed by Kong Lingchao.</p>
              <p>All Rights Reserved.</p>
              <div className="flex justify-between mt-2 pt-2 border-t border-gray-200/60">
+               <span>Page Views</span>
+               <span className="font-mono text-gray-600 font-bold flex items-center gap-1"><Eye size={10} /> {pageViews.toLocaleString()}</span>
+             </div>
+             <div className="flex justify-between mt-1">
                <span>Version</span>
-               <span className="font-mono text-gray-600">v5.1</span>
+               <span className="font-mono text-gray-600">v5.2</span>
              </div>
            </div>
         </div>
