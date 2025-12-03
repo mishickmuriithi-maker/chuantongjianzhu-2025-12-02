@@ -115,8 +115,8 @@ export const AddDataModal: React.FC<AddDataModalProps> = ({ type, initialData, o
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // If editing, preserve ID. If adding, generate new ID using Date.now().
-    // This ensures IDs are large (> 100), unique, and sortable by creation time.
+    // If editing, preserve ID. If adding, generate new ID.
+    // Ensure we merge with defaults so no field is undefined
     const defaults = initializeDefaults(type);
     const mergedData = { ...defaults, ...formData };
     
@@ -132,7 +132,7 @@ export const AddDataModal: React.FC<AddDataModalProps> = ({ type, initialData, o
     <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-gray-900/50 backdrop-blur-sm">
       <div className="bg-white rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col max-h-[90vh]">
         <div className="flex justify-between items-center px-8 py-5 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-          <h3 className="text-xl font-serif font-bold text-gray-900">{getTitle()}</h3>
+          <h3 className="text-xl font-bold text-gray-900">{getTitle()}</h3>
           <button onClick={onClose} className="p-2 rounded-full hover:bg-gray-100 text-gray-500 transition-colors">
             <X size={24} />
           </button>

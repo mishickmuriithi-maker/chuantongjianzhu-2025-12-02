@@ -26,7 +26,7 @@ export const SectionCard = ({ title, children, icon, color = "gray", className =
       <div className={`p-2 rounded-xl bg-${color}-50 text-${color}-600`}>
          {icon}
       </div>
-      <h3 className="font-bold text-gray-900 font-serif text-xl tracking-wide">{title}</h3>
+      <h3 className="font-bold text-gray-900 text-xl tracking-wide">{title}</h3>
     </div>
     <div className="space-y-5">
       {children}
@@ -47,7 +47,7 @@ export const InfoBadge = ({ label, value, icon }: any) => (
   <div className="flex flex-col items-center justify-center p-4 bg-white border border-gray-100 rounded-2xl shadow-sm hover:shadow-md transition-shadow">
      <div className="text-gray-400 mb-2">{icon}</div>
      <span className="text-[10px] text-gray-400 mb-1 font-bold uppercase tracking-widest">{label}</span>
-     <span className="font-bold text-gray-900 text-lg font-serif">{value || '-'}</span>
+     <span className="font-bold text-gray-900 text-lg">{value || '-'}</span>
   </div>
 );
 
@@ -83,7 +83,7 @@ export function DataView<T extends { id: string | number }>({
     <div className="h-full flex flex-col space-y-6">
       {/* Toolbar - Colorful & Functional */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
-        <h2 className="text-3xl font-serif font-bold text-gray-900 tracking-tight pl-2 border-l-4 border-indigo-600">{title}</h2>
+        <h2 className="text-3xl font-bold text-gray-900 tracking-tight pl-2 border-l-4 border-indigo-600">{title}</h2>
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
           <div className="relative w-full sm:w-80 group">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -129,13 +129,12 @@ export function DataView<T extends { id: string | number }>({
             </thead>
             <tbody className="bg-white divide-y divide-gray-50">
               {filteredData.map((item, index) => {
-                // Robust check for user created data. 
-                // System data is typically 1-30. We set threshold to 100 to cover legacy user data.
+                // Strict check: IDs 1-100 are system data. Anything else is user data.
                 const idNum = Number(item.id);
-                const isUserCreated = !isNaN(idNum) && idNum > 100;
+                const isSystemData = !isNaN(idNum) && idNum <= 100;
                 
-                // Allow delete if protection is off OR if item is user-created
-                const canDelete = onDelete && (!protectSystemData || isUserCreated);
+                // Allow delete if protection is off OR if item is NOT system data
+                const canDelete = onDelete && (!protectSystemData || !isSystemData);
 
                 return (
                   <tr 
@@ -229,7 +228,7 @@ export function DataView<T extends { id: string | number }>({
             <div className="flex justify-between items-center px-10 py-6 border-b border-gray-100 bg-white z-20 sticky top-0">
                <div className="flex items-center gap-3">
                  <div className="w-1.5 h-6 bg-indigo-600 rounded-full"></div>
-                 <h3 className="text-2xl font-serif font-bold text-gray-900 tracking-wide">档案详情</h3>
+                 <h3 className="text-2xl font-bold text-gray-900 tracking-wide">档案详情</h3>
                </div>
                <button 
                 onClick={() => setSelectedItem(null)}

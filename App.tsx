@@ -90,7 +90,7 @@ function App() {
         // Update existing
         return prevList.map(item => String(item.id) === String(data.id) ? data : item);
       } else {
-        // Add new to the TOP of the list
+        // Add new
         return [data, ...prevList];
       }
     };
@@ -191,7 +191,7 @@ function App() {
           <div className="space-y-8 pb-10">
             <div className="flex items-center gap-4 mb-6 px-2 border-l-4 border-indigo-600 pl-4">
                <div>
-                 <h2 className="text-4xl font-serif font-bold text-gray-900 tracking-tight">地理人文环境</h2>
+                 <h2 className="text-4xl font-bold text-gray-900 tracking-tight">地理人文环境</h2>
                  <p className="text-gray-500 mt-1 font-medium">甘肃五大特色地域自然与人文全景</p>
                </div>
             </div>
@@ -213,7 +213,7 @@ function App() {
                        </div>
                        
                        <div>
-                         <h3 className="text-3xl font-serif font-bold mb-3 drop-shadow-sm">{region.name}</h3>
+                         <h3 className="text-3xl font-bold mb-3 drop-shadow-sm">{region.name}</h3>
                          <p className="text-white/90 line-clamp-3 font-medium text-sm leading-relaxed mb-6 bg-black/5 p-3 rounded-lg backdrop-blur-sm border border-white/10">{region.location}</p>
                          
                          <div className="flex items-center text-xs font-bold tracking-widest uppercase bg-white/20 w-fit px-4 py-2 rounded-full backdrop-blur hover:bg-white hover:text-gray-900 transition-colors">
@@ -238,7 +238,7 @@ function App() {
                   <div className={`relative h-56 flex-shrink-0 flex items-center px-12 ${getRegionColor(selectedRegion.id)}`}>
                      <div className="flex-1 z-10 text-white">
                         <span className="font-mono mb-2 block tracking-wider text-sm opacity-80 border border-white/30 w-fit px-2 rounded">{selectedRegion.id}</span>
-                        <h2 className="text-5xl font-serif font-bold tracking-tight drop-shadow-md">{selectedRegion.name}</h2>
+                        <h2 className="text-5xl font-bold tracking-tight drop-shadow-md">{selectedRegion.name}</h2>
                      </div>
                      <div className="opacity-20 transform scale-150 text-white">
                         {getRegionIcon(selectedRegion.id)}
@@ -292,7 +292,7 @@ function App() {
             onAdd={() => { setEditingItem(null); setIsAddModalOpen(true); }}
             onEdit={handleEdit}
             onDelete={handleDelete}
-            protectSystemData={false} // Allow deleting any user data (ID > 100)
+            protectSystemData={true} // Protect system data (ID <= 100), allow user data (ID > 100) deletion
             searchKeys={['name', 'trade', 'location', 'level']}
             columns={[
               { header: '序号', accessor: 'id', width: 'w-20 text-gray-400 font-mono' },
@@ -310,10 +310,10 @@ function App() {
                   <div className="flex-1 space-y-4">
                      <div>
                        <div className="flex items-center gap-4 mb-2">
-                         <h1 className="text-5xl font-serif font-bold text-gray-900">{item.name}</h1>
+                         <h1 className="text-5xl font-bold text-gray-900">{item.name}</h1>
                          <span className="px-4 py-1.5 bg-gray-900 text-white rounded-full text-sm font-bold tracking-wide uppercase shadow-lg">{item.trade}</span>
                        </div>
-                       <p className="text-2xl text-indigo-600 font-serif font-bold">{item.level}</p>
+                       <p className="text-2xl text-indigo-600 font-bold">{item.level}</p>
                      </div>
                      
                      <div className="flex flex-wrap gap-3">
@@ -337,7 +337,7 @@ function App() {
                     </div>
                     <div className="hidden sm:block text-right pr-6">
                        <p className="text-xs text-blue-400 font-bold uppercase tracking-wider mb-1">从业时长</p>
-                       <p className="text-4xl font-serif font-bold text-blue-900">{item.experience}</p>
+                       <p className="text-4xl font-bold text-blue-900">{item.experience}</p>
                     </div>
                 </div>
 
@@ -377,7 +377,7 @@ function App() {
             onAdd={() => { setEditingItem(null); setIsAddModalOpen(true); }}
             onEdit={handleEdit}
             onDelete={handleDelete}
-            protectSystemData={false} // Allow full editing/deleting
+            protectSystemData={true} // Protect system data (ID <= 100), allow user data (ID > 100) deletion
             searchKeys={['name', 'location', 'specialty']}
             columns={[
               { header: '序号', accessor: 'id', width: 'w-20 font-mono text-gray-400' },
@@ -392,7 +392,7 @@ function App() {
                        <HardHat size={200} />
                     </div>
                     <div className="relative z-10">
-                      <h1 className="text-4xl font-serif font-bold text-white mb-6 tracking-wide shadow-black drop-shadow-lg">{item.name}</h1>
+                      <h1 className="text-4xl font-bold text-white mb-6 tracking-wide shadow-black drop-shadow-lg">{item.name}</h1>
                       <div className="flex flex-wrap gap-4 text-sm font-bold text-white">
                         <span className="bg-white/20 px-5 py-2 rounded-full backdrop-blur border border-white/30 flex items-center gap-2"><Briefcase size={16}/> {item.type}</span>
                         <span className="bg-white/20 px-5 py-2 rounded-full backdrop-blur border border-white/30 flex items-center gap-2"><MapPin size={16}/> {item.location}</span>
@@ -431,7 +431,7 @@ function App() {
             onAdd={() => { setEditingItem(null); setIsAddModalOpen(true); }}
             onEdit={handleEdit}
             onDelete={handleDelete}
-            protectSystemData={true} // Strict requirement: Only allow deletion of user-added projects
+            protectSystemData={true} // Protect system data (ID <= 100), allow user data (ID > 100) deletion
             searchKeys={['name', 'mainCraft', 'features']}
             columns={[
               { header: '序号', accessor: 'id', width: 'w-20 font-mono text-gray-400' },
@@ -448,7 +448,7 @@ function App() {
                     </div>
                     <div className="relative z-10">
                         <span className="bg-white/20 px-3 py-1 rounded text-xs font-bold uppercase tracking-widest mb-4 inline-block backdrop-blur-sm border border-white/20">Project Case Study</span>
-                        <h1 className="text-4xl font-serif font-bold mb-4">{item.name}</h1>
+                        <h1 className="text-4xl font-bold mb-4">{item.name}</h1>
                         <p className="text-indigo-100 font-medium text-lg flex items-center gap-3">
                            <Clock size={20} /> {item.completionTime} 
                            <span className="w-1.5 h-1.5 bg-white rounded-full opacity-50"></span>
@@ -479,7 +479,7 @@ function App() {
           <div className="space-y-8 pb-10">
             <div className="flex flex-col md:flex-row justify-between items-end gap-4 px-2 mb-4 border-l-4 border-rose-500 pl-4">
                <div>
-                  <h2 className="text-4xl font-serif font-bold text-gray-900 tracking-tight">营造技艺</h2>
+                  <h2 className="text-4xl font-bold text-gray-900 tracking-tight">营造技艺</h2>
                   <p className="text-gray-500 mt-2 max-w-2xl font-medium">
                      收录了甘肃地区核心的传统建筑营造技艺，从选材、工具到制作流程的完整记录。
                   </p>
@@ -543,7 +543,7 @@ function App() {
                         </div>
 
                         <div>
-                           <h3 className="text-3xl font-serif font-bold mb-2 drop-shadow-md leading-tight">{tech.name}</h3>
+                           <h3 className="text-3xl font-bold mb-2 drop-shadow-md leading-tight">{tech.name}</h3>
                            <div className="h-1 w-12 bg-white/60 rounded-full mb-3"></div>
                            <p className="text-white/80 text-sm line-clamp-2 font-medium">
                               {(tech.materials || '').substring(0, 30) + '...'}
@@ -564,7 +564,7 @@ function App() {
                   <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-4xl h-[90vh] flex flex-col overflow-hidden border border-white">
                      
                      <div className="flex justify-between items-center px-8 py-5 border-b border-gray-100 bg-white z-20 sticky top-0">
-                        <h3 className="text-xl font-serif font-bold text-gray-900">技艺详解</h3>
+                        <h3 className="text-xl font-bold text-gray-900">技艺详解</h3>
                         <button 
                            onClick={() => setSelectedTechnique(null)}
                            className="p-2 rounded-full hover:bg-gray-100 transition-colors text-gray-500 hover:text-gray-900"
@@ -580,14 +580,14 @@ function App() {
                               <Hammer size={48} />
                            </div>
                            <div>
-                             <h1 className="text-5xl font-serif font-bold text-gray-900 mb-2">{selectedTechnique.name}</h1>
+                             <h1 className="text-5xl font-bold text-gray-900 mb-2">{selectedTechnique.name}</h1>
                              <p className="text-gray-500 font-mono text-sm font-bold tracking-wider">TECHNIQUE ID: {selectedTechnique.id}</p>
                            </div>
 
                            {selectedTechnique.rhyme && selectedTechnique.rhyme !== "无" && (
                               <div className="w-full bg-amber-50 p-8 rounded-2xl border border-amber-100 relative overflow-hidden shadow-sm">
                                  <h4 className="font-bold text-amber-800/60 text-xs uppercase tracking-widest mb-3">匠人口诀</h4>
-                                 <p className="italic text-amber-900 text-2xl font-serif leading-relaxed">“{selectedTechnique.rhyme}”</p>
+                                 <p className="italic text-amber-900 text-2xl leading-relaxed">“{selectedTechnique.rhyme}”</p>
                               </div>
                            )}
                         </div>
@@ -646,7 +646,7 @@ function App() {
 
       {/* Real-time Clock Widget */}
       <div className="fixed top-6 right-8 z-40 hidden lg:flex flex-col items-end pointer-events-none select-none">
-         <div className="text-4xl font-serif font-bold text-gray-400 tracking-tighter">
+         <div className="text-4xl font-bold text-gray-400 tracking-tighter">
             {currentTime.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' })}
          </div>
          <div className="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
@@ -667,20 +667,11 @@ function App() {
              <div className="w-10 h-10 bg-indigo-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-200 text-white transform rotate-3">
                <Building2 size={22} />
              </div>
-             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v4.6</div>
+             <div className="text-[10px] font-bold text-indigo-600 bg-indigo-50 border border-indigo-100 px-3 py-1 rounded-full tracking-wider">DATABASE v5.0</div>
           </div>
-          <h1 className="text-3xl font-serif font-bold text-gray-900 leading-tight tracking-tight">
+          <h1 className="text-3xl font-bold text-gray-900 leading-tight tracking-tight">
             传统建筑工匠<br/>与营造技艺数据库
           </h1>
-          <div className="mt-8 pt-6 border-t border-gray-100 flex items-center gap-4">
-             <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden border border-gray-200 shadow-inner">
-                <Users size={20} className="text-gray-500" />
-             </div>
-             <div>
-                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">全栈工程师</p>
-                <p className="text-sm font-bold text-gray-800">孔令超</p>
-             </div>
-          </div>
         </div>
         
         <nav className="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar py-4">
@@ -704,14 +695,24 @@ function App() {
         </nav>
 
         <div className="p-8 border-t border-gray-100 bg-gray-50/50">
-           <div className="flex flex-col gap-1 text-[10px] font-medium text-gray-400">
-             <div className="flex justify-between items-center text-gray-500 font-bold">
-               <span>© 2025 Kong Lingchao</span>
+           {/* Engineer Info moved here */}
+           <div className="flex items-center gap-3 mb-4 pb-4 border-b border-gray-200/60">
+             <div className="w-8 h-8 rounded-full bg-indigo-100 flex items-center justify-center overflow-hidden border border-indigo-200 text-indigo-600">
+                <User size={16} />
              </div>
-             <p>All Rights Reserved</p>
+             <div>
+                <p className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Full Stack Engineer</p>
+                <p className="text-sm font-bold text-gray-800">Kong Lingchao</p>
+             </div>
+           </div>
+
+           <div className="flex flex-col gap-1 text-[10px] font-medium text-gray-400">
+             <p>© 2025 Traditional Architecture & Craftsmanship Database.</p>
+             <p>Designed & Developed by Kong Lingchao.</p>
+             <p>All Rights Reserved.</p>
              <div className="flex justify-between mt-2 pt-2 border-t border-gray-200/60">
-               <span>Design Date:</span>
-               <span className="font-mono text-gray-600">2025.11</span>
+               <span>Version</span>
+               <span className="font-mono text-gray-600">v5.0</span>
              </div>
            </div>
         </div>
@@ -719,7 +720,7 @@ function App() {
 
       {/* Mobile Header */}
       <div className="md:hidden fixed top-0 w-full z-30 bg-white/95 backdrop-blur-xl border-b border-gray-200 px-4 py-3 flex justify-between items-center shadow-sm">
-         <h1 className="text-lg font-serif font-bold text-gray-900">营造技艺数据库</h1>
+         <h1 className="text-lg font-bold text-gray-900">营造技艺数据库</h1>
          <button onClick={() => setMobileMenuOpen(!mobileMenuOpen)} className="p-2 text-gray-600 bg-gray-50 rounded-lg">
            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
          </button>

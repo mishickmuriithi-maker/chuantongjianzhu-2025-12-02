@@ -75,10 +75,40 @@ export const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className="space-y-8 pb-10">
       {/* Header Info */}
-      <div className="flex flex-col md:flex-row justify-between items-end gap-4 mb-4">
+      <div className="flex flex-col md:flex-row justify-between items-end gap-4 mb-2">
         <div>
-          <h2 className="text-4xl font-serif font-bold text-gray-900 tracking-tight">数据库概览</h2>
+          <h2 className="text-4xl font-bold text-gray-900 tracking-tight">数据库概览</h2>
           <p className="text-gray-500 mt-2 font-medium">传统建筑工匠与营造技艺数字化全景</p>
+        </div>
+      </div>
+
+      {/* Project Info Card (Moved to Top) */}
+      <div className="bg-gradient-to-br from-indigo-900 to-slate-900 p-8 rounded-3xl shadow-lg border border-indigo-800 text-white relative overflow-hidden flex flex-col justify-center group">
+        <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+            <Building2 size={180} />
+        </div>
+        <div className="relative z-10">
+            <div className="flex items-center gap-3 mb-4">
+                    <span className="bg-indigo-500/80 text-white text-[10px] font-bold px-3 py-1 rounded-full border border-indigo-400/30 backdrop-blur-sm tracking-wider uppercase">科研课题</span>
+                    <span className="text-indigo-200 text-[10px] font-bold tracking-widest uppercase font-mono">JK2025-26</span>
+            </div>
+            <h3 className="text-2xl font-bold mb-6 leading-relaxed text-white drop-shadow-md">
+                《西北地区（甘肃）传统建筑的基础性研究之传统建筑传承人及营造技术》
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-sm border-t border-white/10 pt-6">
+                <div className="flex flex-col">
+                    <span className="text-indigo-300 font-bold text-xs uppercase tracking-wider mb-1">项目负责人</span>
+                    <span className="font-medium text-lg">冯志涛</span>
+                </div>
+                <div className="flex flex-col">
+                    <span className="text-indigo-300 font-bold text-xs uppercase tracking-wider mb-1">课题承担单位</span>
+                    <span className="font-medium">甘肃省建筑设计研究院有限公司</span>
+                </div>
+                <div className="flex flex-col">
+                        <span className="text-indigo-300 font-bold text-xs uppercase tracking-wider mb-1">课题验收单位</span>
+                    <span className="font-medium">甘肃省住房和城乡建设厅</span>
+                </div>
+            </div>
         </div>
       </div>
 
@@ -99,7 +129,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="mb-4 p-4 bg-white rounded-2xl shadow-sm group-hover:shadow-md transition-all">
               {stat.icon}
             </div>
-            <span className="text-4xl font-serif font-bold text-gray-900 mb-1 block">{stat.count}</span>
+            <span className="text-4xl font-bold text-gray-900 mb-1 block">{stat.count}</span>
             <span className="text-xs font-bold text-gray-500 uppercase tracking-widest">{stat.label}</span>
           </div>
         ))}
@@ -157,7 +187,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
               {/* Custom Legend Center */}
               <div className="absolute inset-0 pointer-events-none flex items-center justify-center mb-8">
                  <div className="flex flex-col items-center justify-center">
-                    <span className="text-3xl font-bold text-gray-900 font-serif">{craftsmenCount}</span>
+                    <span className="text-3xl font-bold text-gray-900">{craftsmenCount}</span>
                     <span className="text-xs text-gray-400 font-bold uppercase">TOTAL</span>
                  </div>
               </div>
@@ -197,44 +227,12 @@ export const Dashboard: React.FC<DashboardProps> = ({
             <div className="absolute top-0 right-0 p-10 opacity-5 pointer-events-none">
                <Building2 size={200} />
             </div>
-            <h3 className="text-2xl font-serif font-bold text-gray-900 mb-6 relative z-10">数据库平台简介</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-6 relative z-10">数据库平台简介</h3>
             <p className="text-gray-600 leading-8 text-justify indent-8 relative z-10 font-medium">
                《传统建筑工匠与营造技艺数据库》是一个致力于记录、保护和传承甘肃省及周边地区传统建筑文化的数字化交互平台。
                本平台通过系统化的梳理，涵盖了5大核心地理区域、{craftsmenCount}位非遗工匠、{teamsCount}支专业营造团队及{techniquesCount}项核心营造技艺。
                旨在通过现代技术手段，为传统营造技艺的学术研究、保护传承及活化利用提供翔实的数据支撑。
             </p>
-         </div>
-
-         {/* Project Info (Full Width, New Added) */}
-         <div className="lg:col-span-2 bg-gradient-to-br from-indigo-900 to-slate-900 p-8 rounded-3xl shadow-lg border border-indigo-800 text-white relative overflow-hidden flex flex-col justify-center">
-            <div className="absolute top-0 right-0 p-6 opacity-5 pointer-events-none">
-                <Building2 size={180} />
-            </div>
-            <div className="relative z-10 flex flex-col md:flex-row gap-8 items-start md:items-center">
-                <div className="flex-1">
-                    <div className="flex items-center gap-3 mb-4">
-                        <span className="bg-indigo-500 text-white text-xs font-bold px-3 py-1 rounded-full border border-indigo-400/30 shadow-sm">科研课题</span>
-                        <span className="text-indigo-200 text-xs font-bold tracking-widest uppercase">No. JK2025-26</span>
-                    </div>
-                    <h3 className="text-2xl font-serif font-bold mb-6 leading-tight text-white shadow-black drop-shadow-md">
-                        《西北地区（甘肃）传统建筑的基础性研究之传统建筑传承人及营造技术》
-                    </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-y-3 gap-x-8 text-sm">
-                        <div className="flex items-center gap-2">
-                            <span className="text-indigo-300 font-bold">项目负责人:</span>
-                            <span className="font-medium">冯志涛</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                            <span className="text-indigo-300 font-bold">课题承担单位:</span>
-                            <span className="font-medium">甘肃省建筑设计研究院有限公司</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                             <span className="text-indigo-300 font-bold">课题验收单位:</span>
-                            <span className="font-medium">甘肃省住房和城乡建设厅</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
          </div>
 
       </div>
